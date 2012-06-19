@@ -23,10 +23,10 @@
 							<builder buildPath="${workspace_loc:/Blink/Debug}" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.builder.debug.990291749" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.builder.debug"/>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.assembler.debug.1978957266" name="ARM Sourcery Linux GCC Assembler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.assembler.debug">
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.930775582" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/Device/STM32F4xx/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/STM32F4xx_StdPeriph_Driver/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.1591261619" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input"/>
 							</tool>
@@ -36,6 +36,12 @@
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 									<listOptionValue builtIn="false" value="USE_STM32_DISCOVERY"/>
 									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
+								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths.954209378" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/Device/STM32F4xx/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/STM32F4xx_StdPeriph_Driver/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.656225855" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input"/>
 							</tool>
@@ -88,10 +94,10 @@
 							<builder buildPath="${workspace_loc:/Blink/Release}" id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.builder.release.123053422" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="ARM Sourcery Linux GNU Make builder" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.builder.release"/>
 							<tool id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.assembler.release.1067389406" name="ARM Sourcery Linux GCC Assembler" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.elf.assembler.release">
 								<option id="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths.2113635770" name="Include paths (-I)" superClass="org.eclipse.cdt.cross.arm.gnu.assembler.option.include.paths" valueType="includePath">
-									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
-									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/Device/STM32F4xx/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
 									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/STM32F4xx_StdPeriph_Driver/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input.1089449768" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.assembler.base.input"/>
 							</tool>
@@ -101,6 +107,12 @@
 									<listOptionValue builtIn="false" value="USE_STDPERIPH_DRIVER"/>
 									<listOptionValue builtIn="false" value="USE_STM32_DISCOVERY"/>
 									<listOptionValue builtIn="false" value="HSE_VALUE=8000000"/>
+								</option>
+								<option id="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths.777554481" superClass="org.eclipse.cdt.cross.arm.gnu.c.compiler.option.include.paths" valueType="includePath">
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/src&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/Device/STM32F4xx/Include&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/STM32F4xx_StdPeriph_Driver/inc&quot;"/>
+									<listOptionValue builtIn="false" value="&quot;/${ProjDirPath}/lib/CMSIS/Include&quot;"/>
 								</option>
 								<inputType id="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input.1655234259" superClass="org.eclipse.cdt.cross.arm.gnu.sourcery.linux.c.compiler.base.input"/>
 							</tool>
