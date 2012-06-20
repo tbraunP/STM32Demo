@@ -96,10 +96,31 @@ LoopFillZerobss:
 
 /* Call the clock system intitialization function.*/
   bl  SystemInit   
+
 /* Call static constructors */
 //    bl __libc_init_array
+
+// Call C++ constructors. The compiler and linker together populate the .ctors
+// code section with the addresses of the constructor functions
+call_ctors:
+		ldr		r0, =__ctors_start__   // load adress of __ctors_start__ into r0
+		ldr		r1, =__ctors_end__
+		subs	r1, r1, r0		// Length of ctors section
+		beq		call_main		// Skip if no constructors
+
+ctors_loop:	ldr		r2, [r0], #4		// Load next constructor address
+		push		{r0,r1}			// Save registers
+		blx		r2			// Call constructor
+		pop		{r0,r1}			// Restore registers
+		subs		r1, r1, #4		// Decrement counter
+		bgt		ctors_loop		// Repeat until done
+
 /* Call the application's entry point.*/
-  bl  main
+call_main:  	
+		mov r0, #0
+		mov r1, #0
+		bl  main
+
 /* Atollic update, branch LoopForever */
 LoopForever:
   b LoopForever
@@ -512,5 +533,18 @@ g_pfnVectors:
 
    .weak      FPU_IRQHandler                  
    .thumb_set FPU_IRQHandler,Default_Handler  
+
+
+//=============================================================================
+
+// libstdc++ needs this
+
+.bss
+__dso_handle:	.word
+		.global		__dso_handle
+		.weak		__dso_handle
+
+		.end
+
 
 /*******************   (C)   COPYRIGHT   2011   STMicroelectronics   *****END   OF   FILE****/

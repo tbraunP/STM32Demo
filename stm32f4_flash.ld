@@ -1,33 +1,6 @@
-/*d
-*****************************************************************************
-**
-**  File        : stm32_flash.ld
-**
-**  Abstract    : Linker script for STM32F407VG Device with
-**                1024KByte FLASH, 128KByte RAM
-**
-**                Set heap size, stack size and stack location according
-**                to application requirements.
-**
-**                Set memory bank area and size if external memory is used.
-**
-**  Target      : STMicroelectronics STM32
-**
-**  Environment : Atollic TrueSTUDIO(R)
-**
-**  Distribution: The file is distributed �as is,� without any warranty
-**                of any kind.
-**
-**  (c)Copyright Atollic AB.
-**  You may use this file as-is or modify it according to the needs of your
-**  project. Distribution of this file (unmodified or modified) is not
-**  permitted. Atollic AB permit registered Atollic TrueSTUDIO(R) users the
-**  rights to distribute the assembled, compiled & linked contents of this
-**  file as part of an application binary file, provided that it is built
-**  using the Atollic TrueSTUDIO(R) toolchain.
-**
-*****************************************************************************
-*/
+/*
+ *  Linker script for STM32F407VG Device with  1024KByte FLASH, 128KByte RAM
+ */
 
 /* Entry Point */
 ENTRY(Reset_Handler)
@@ -130,25 +103,6 @@ SECTIONS
     _edata = .;        /* define a global symbol at data end */
   } >RAM AT> FLASH
   
-  _siccmram = LOADADDR(.ccmram);
-
-  /* CCM-RAM section 
-  * 
-  * IMPORTANT NOTE! 
-  * If initialized variables will be placed in this section, 
-  * the startup code needs to be modified to copy the init-values.  
-  */
-  .ccmram :
-  {
-    . = ALIGN(4);
-    _sccmram = .;       /* create a global symbol at ccmram start */
-    *(.ccmram)
-    *(.ccmram*)
-    
-    . = ALIGN(4);
-    _eccmram = .;       /* create a global symbol at ccmram end */
-  } >CCMRAM AT> FLASH
-
   /* Uninitialized data section */
   . = ALIGN(4);
   .bss :
