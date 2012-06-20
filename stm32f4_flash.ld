@@ -15,7 +15,7 @@
 **
 **  Environment : Atollic TrueSTUDIO(R)
 **
-**  Distribution: The file is distributed “as is,” without any warranty
+**  Distribution: The file is distributed ï¿½as is,ï¿½ without any warranty
 **                of any kind.
 **
 **  (c)Copyright Atollic AB.
@@ -74,11 +74,19 @@ SECTIONS
     KEEP (*(.init))
     KEEP (*(.fini))
 
+    /* support for c++, see http://tech.munts.com/MCU/Frameworks/ARM/stm32f4/stm32f407vg.lld*/  
+    . = ALIGN(4);
+    __ctors_start__ = .;
+    KEEP(*(.init_array));  		/* C++ constructors */
+    KEEP(*(.ctors));			/* C++ constructors */
+    __ctors_end__ = .;
+
+
     . = ALIGN(4);
     _etext = .;        /* define a global symbols at end of code */
   } >FLASH
 
-
+  /* C++ exception unwinding stuff--needed by some toolchains */
    .ARM.extab   : { *(.ARM.extab* .gnu.linkonce.armextab.*) } >FLASH
     .ARM : {
     __exidx_start = .;
