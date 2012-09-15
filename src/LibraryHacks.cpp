@@ -7,8 +7,6 @@
  * @project	ThunderCryer
  ******************************************************************************
  */
-
-
 #ifdef __cplusplus
 /*
  * LibraryHacks.cpp  *

@@ -7,22 +7,49 @@
 #include "stm32f4xx_conf.h"
 #include "stm32f4xx.h"
 #include "syscalls.h"
+#include "stm32f4xx_it.h"
+#include <stdint.h>
 
 GPIO_InitTypeDef GPIO_InitStructure;
 
-void Delay(__IO uint32_t nCount) {
-	while (nCount--) {
-	}
+
+volatile uint32_t TimingDelay;
+
+/**
+  * @brief  Inserts a delay time.
+  * @param  nTime: specifies the delay time length, in milliseconds.
+  * @retval None
+  */
+void Delay(uint32_t nTime)
+{
+  TimingDelay = nTime;
+
+  while(TimingDelay != 0);
 }
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-	//extern void foo(void);
-#ifdef __cplusplus
+/**
+  * @brief  Decrements the TimingDelay variable.
+  * @param  None
+  * @retval None
+  */
+void TimingDelay_Decrement(void)
+{
+  if (TimingDelay > 0)
+  {
+    TimingDelay--;
+  }
 }
-#endif
 
+
+void dDelay(uint32_t nTime)
+{
+  nTime*=100000;
+
+  while(--nTime > 0);
+}
+
+
+// C++ test case
 #ifdef __cplusplus
 
 class A {
@@ -42,13 +69,13 @@ public:
 	};
 };
 
-class B{
+class B {
 public:
-	B(){
+	B() {
 
 	};
 
-	virtual ~B(){
+	virtual ~B() {
 
 	};
 
@@ -56,15 +83,15 @@ public:
 	virtual int getF() = 0;
 };
 
-class C : public B{
+class C : public B {
 private:
 	int f;
 public:
-	virtual void setF(int i){
+	virtual void setF(int i) {
 		f=i;
 	};
 
-	virtual int getF(){
+	virtual int getF() {
 		return f;
 	};
 };
@@ -90,21 +117,25 @@ int main(void) {
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 
+	// activate systick (timebase 100 Hz -> 10 ms), using floating point else the
+	// result will be 0 of the division!
+	SysTick_Config(SystemCoreClock*(1/100.0));
+
 	while (1) {
 		/* Set PD12 Green */
 		GPIOD ->BSRRL = GPIO_Pin_12;
 		/* Reset PD13 Orange, PD14 Red, PD15 Blue */GPIOD ->BSRRH = GPIO_Pin_13
 				| GPIO_Pin_14 | GPIO_Pin_15;
-		Delay(10000000L);
+		Delay(100L);
 
 #ifdef __cplusplus
 		if(a.getI()==10 && aa.getI()==10)
 #endif
 		{
-		/* Set PD13 Orange */GPIOD ->BSRRL = GPIO_Pin_13;
-		/* Reset PD12 Green, PD14 Red, PD15 Blue */GPIOD ->BSRRH = GPIO_Pin_12
-				| GPIO_Pin_14 | GPIO_Pin_15;
-		Delay(10000000L);
+			/* Set PD13 Orange */GPIOD ->BSRRL = GPIO_Pin_13;
+			/* Reset PD12 Green, PD14 Red, PD15 Blue */GPIOD ->BSRRH =
+					GPIO_Pin_12 | GPIO_Pin_14 | GPIO_Pin_15;
+			Delay(100L);
 		}
 
 #ifdef __cplusplus
@@ -116,7 +147,7 @@ int main(void) {
 			GPIOD ->BSRRL = GPIO_Pin_14;
 			/* Reset PD12 Green, PD13 Orange, PD15 Blue */GPIOD ->BSRRH =
 					GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_15;
-			Delay(10000000L);
+			Delay(100L);
 		}
 #ifdef __cplusplus
 		delete b;
@@ -132,7 +163,7 @@ int main(void) {
 			GPIOD ->BSRRL = GPIO_Pin_15;
 			/* Reset PD12 Green, PD13 Orange, PD14 Red */GPIOD ->BSRRH =
 					GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14;
-			Delay(10000000L);
+			Delay(100L);
 		}
 #ifdef __cplusplus
 		delete c;
