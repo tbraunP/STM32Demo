@@ -51,7 +51,31 @@ int _kill_r(struct _reent *ptr, int pid, int sig) {
 	return 0;
 }
 
+void _exit(int status) {
+	while (1)
+		;
+}
 
-void _exit(int status){
-	while(1);
+_ssize_t _write_r(struct _reent *ptr, int fd, const void *buf, size_t cnt) {
+	return 0;
+}
+
+int _close_r(struct _reent *ptr, int fd) {
+	return 0;
+}
+
+int _fstat_r(struct _reent *pt, int fd, struct stat *pstat) {
+	return 0;
+}
+
+int _isatty_r(struct _reent *ptr, int fd) {
+	return 0;
+}
+
+off_t _lseek_r(struct _reent *ptr, int fd, off_t pos, int whence) {
+	return 0;
+}
+
+_ssize_t _read_r(struct _reent *ptr, int fd, void *buf, size_t cnt){
+	return 0;
 }

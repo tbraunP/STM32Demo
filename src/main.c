@@ -43,6 +43,7 @@ public:
 };
 
 A a;
+A c;
 #endif
 
 int main(void) {
@@ -62,8 +63,6 @@ int main(void) {
 	GPIO_InitStructure.GPIO_PuPd = GPIO_PuPd_NOPULL;
 	GPIO_Init(GPIOD, &GPIO_InitStructure);
 
-	int i=0;
-
 	while (1) {
 		/* Set PD12 Green */
 		GPIOD ->BSRRL = GPIO_Pin_12;
@@ -74,13 +73,12 @@ int main(void) {
 
 
 		/* Set PD13 Orange */GPIOD ->BSRRL = GPIO_Pin_13;
-		//_init_c();
 		/* Reset PD12 Green, PD14 Red, PD15 Blue */GPIOD ->BSRRH = GPIO_Pin_12
 				| GPIO_Pin_14 | GPIO_Pin_15;
 		Delay(10000000L);
 
 #ifdef __cplusplus
-		if(a.getI()==10)
+		if(a.getI()==10 && c.getI()==10)
 #endif
 		{
 			/* Set PD14 Red */
@@ -91,7 +89,8 @@ int main(void) {
 		}
 
 #ifdef __cplusplus
-		//if(b->getI()==10)
+		A* c = new A();
+		if(c->getI()==10)
 #endif
 		{
 			/* Set PD15 Blue */
@@ -100,5 +99,8 @@ int main(void) {
 					GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_14;
 			Delay(10000000L);
 		}
+#ifdef __cplusplus
+		delete c;
+#endif
 	}
 }
