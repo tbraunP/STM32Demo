@@ -98,29 +98,37 @@ LoopFillZerobss:
 /* Call the clock system intitialization function.*/
   bl  SystemInit   
 
-/* Call static constructors */
-    bl __libc_init_array
+/* Call static constructors (new lib calls _init)*/
+  bl __libc_init_array
 
-// Call C++ constructors. The compiler and linker together populate the .ctors
-// code section with the addresses of the constructor functions
-//call_ctors:
-//		ldr		r0, =__ctors_start__   // load adress of __ctors_start__ into r0
-//		ldr		r1, =__ctors_end__
-//		subs	r1, r1, r0		// Length of ctors section
-//		beq		call_main		// Skip if no constructors
-//
-//ctors_loop:	ldr		r2, [r0], #4		// Load next constructor address
-//		push		{r0,r1}			// Save registers
-//		blx		r2			// Call constructor
-//		pop		{r0,r1}			// Restore registers
-//		subs		r1, r1, #4		// Decrement counter
-//		bgt		ctors_loop		// Repeat until done
-//
 /* Call the application's entry point.*/
-call_main:  	
+call_main:
 		mov r0, #0
 		mov r1, #0
 		bl  main
+
+// Call C++ constructors. The compiler and linker together populate the .ctors
+// code section with the addresses of the constructor functions
+.global _init
+.type  _init, %function
+_init:
+call_ctors:
+		stmfd	sp!, {r3, r4, lr}
+		ldr		r3, =__ctors_start__   // load adress of __ctors_start__ into r0
+		ldr		r4, =__ctors_end__
+		subs	r4, r4, r3			// Length of ctors section
+		beq		exit_init			// Skip if no constructors
+
+ctors_loop:
+		ldr		r0, [r3], #4	// Load next constructor address
+		blx		r0				// Call constructor
+		subs	r4, r4, #4		// Decrement counter
+		bgt		ctors_loop		// Repeat until done
+
+exit_init:
+		ldmfd	sp!,{r3, r4, pc}
+		nop
+
 
 /* Atollic update, branch LoopForever */
 LoopForever:

@@ -43,9 +43,6 @@ void __malloc_unlock(struct _reent *reent) {
 	}
 }
 
-void _init(void) {
-}
-
 int _getpid_r(struct _reent *ptr) {
 	return 0;
 }

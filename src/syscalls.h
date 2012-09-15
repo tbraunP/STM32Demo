@@ -23,8 +23,6 @@ void __malloc_lock(struct _reent *reent);
 
 void __malloc_unlock(struct _reent *reent);
 
-void _init(void);
-
 int _getpid_r(struct _reent *ptr);
 
 int _kill_r(struct _reent *ptr, int pid, int sig);

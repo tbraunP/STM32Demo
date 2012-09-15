@@ -13,4 +13,5 @@ make all -j
 cd ..
 
 echo "Uploading..."
+st-flash write Debug/STM32Demo.hex 0x8000000
 
