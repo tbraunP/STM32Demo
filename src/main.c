@@ -42,8 +42,35 @@ public:
 	};
 };
 
+class B{
+public:
+	B(){
+
+	};
+
+	virtual ~B(){
+
+	};
+
+	virtual void setF(int i) = 0;
+	virtual int getF() = 0;
+};
+
+class C : public B{
+private:
+	int f;
+public:
+	virtual void setF(int i){
+		f=i;
+	};
+
+	virtual int getF(){
+		return f;
+	};
+};
+
 A a;
-A c;
+A aa;
 #endif
 
 int main(void) {
@@ -66,19 +93,23 @@ int main(void) {
 	while (1) {
 		/* Set PD12 Green */
 		GPIOD ->BSRRL = GPIO_Pin_12;
-		//foo();
 		/* Reset PD13 Orange, PD14 Red, PD15 Blue */GPIOD ->BSRRH = GPIO_Pin_13
 				| GPIO_Pin_14 | GPIO_Pin_15;
 		Delay(10000000L);
 
-
+#ifdef __cplusplus
+		if(a.getI()==10 && aa.getI()==10)
+#endif
+		{
 		/* Set PD13 Orange */GPIOD ->BSRRL = GPIO_Pin_13;
 		/* Reset PD12 Green, PD14 Red, PD15 Blue */GPIOD ->BSRRH = GPIO_Pin_12
 				| GPIO_Pin_14 | GPIO_Pin_15;
 		Delay(10000000L);
+		}
 
 #ifdef __cplusplus
-		if(a.getI()==10 && c.getI()==10)
+		A* b = new A();
+		if(b->getI()==10)
 #endif
 		{
 			/* Set PD14 Red */
@@ -87,10 +118,14 @@ int main(void) {
 					GPIO_Pin_12 | GPIO_Pin_13 | GPIO_Pin_15;
 			Delay(10000000L);
 		}
+#ifdef __cplusplus
+		delete b;
+#endif
 
 #ifdef __cplusplus
-		A* c = new A();
-		if(c->getI()==10)
+		C* c = new C();
+		c->setF(20);
+		if(c->getF()==20)
 #endif
 		{
 			/* Set PD15 Blue */
